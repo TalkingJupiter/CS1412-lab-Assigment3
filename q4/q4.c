@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 void inputArray(int *arr, int size);
-void printArtay(int *arr, int size, char name[], char stat[]);
+void printArray(int *arr, int size, char name[], char stat[]);
 void swapArray(int *sourceArr, int *destArr, int size);
 
 
@@ -15,10 +15,18 @@ int main(){
     int input_arr[size];
     int dest_arr[size];
 
-    //TODO: Get the numbers
-
     //TODO: Enter the requested prototypes
+    inputArray(input_arr, size);
+    inputArray(dest_arr, size);
 
+    printArray(input_arr, size, "Source", "before");
+    printArray(dest_arr, size, "Destination", "before");
+    printf("\n");
+
+    swapArray(input_arr, dest_arr, size);
+
+    printArray(input_arr, size, "Source", "after");
+    printArray(dest_arr, size, "Destination", "after");
     
 
 }
@@ -30,6 +38,7 @@ void inputArray(int *arr, int size){
         scanf("%d", &inp_num);
         *(arr+i) = inp_num;
     }
+    printf("\n");
 }
 
 void printArray(int *arr, int size, char name[], char stat[]){
@@ -40,10 +49,16 @@ void printArray(int *arr, int size, char name[], char stat[]){
         }else{
             printf("%d, ", *(arr+i));
         }
-        printf("\n");
     }
+    printf("\n");
 }
 
 void swapArray(int *sourceArr, int *destArr, int size){
     //TODO: Swap the arrays
+    int temp;
+    for(int i=0; i<size; i++){
+        temp = *(sourceArr+i);
+        *(sourceArr+i) = *(destArr+i);
+        *(destArr+i) = temp;
+    }
 }
