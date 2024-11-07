@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-void inputArray(int *arr, int size);
+void inputArray(int *arr, int size, char name[]);
 void printArray(int *arr, int size, char name[], char stat[]);
 void swapArray(int *sourceArr, int *destArr, int size);
 
@@ -16,8 +16,8 @@ int main(){
     int dest_arr[size];
 
     //TODO: Enter the requested prototypes
-    inputArray(input_arr, size);
-    inputArray(dest_arr, size);
+    inputArray(input_arr, size, "source");
+    inputArray(dest_arr, size, "destination");
 
     printArray(input_arr, size, "Source", "before");
     printArray(dest_arr, size, "Destination", "before");
@@ -31,10 +31,10 @@ int main(){
 
 }
 
-void inputArray(int *arr, int size){
+void inputArray(int *arr, int size, char name[]){
     int inp_num;
     for(int i=0; i<size; i++){
-        printf("Enter a number: ");
+        printf("Enter %d. element for %s array: ", i+1, name);
         scanf("%d", &inp_num);
         *(arr+i) = inp_num;
     }
