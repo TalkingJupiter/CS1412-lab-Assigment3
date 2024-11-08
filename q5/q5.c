@@ -13,10 +13,10 @@ typedef struct {
 
 int getIndex(int accountNumber);
 char userInput();
-void openAccount(double account[], int *openAccounts);
-void deposit(double account[]);
+void openAccount(Account account[], int *openAccounts);
+void deposit(Account account[]);
 void withdrawMoney();
-void checkBalance(double account[]);
+void checkBalance(Account account[]);
 void addIntereset();
 void closeAccount();
 
@@ -65,7 +65,7 @@ void openAccount(Account accounts[], int *openAccounts){
     int accountNumber, index;
     double initialDeposit;
 
-    if(*openAccount >= NUM_ACCOUNTS){
+    if(*openAccounts >= NUM_ACCOUNTS){
         printf("Cannot open more than 50 accounts.\n");
         return;
     }
@@ -97,7 +97,7 @@ void checkBalance(Account accounts[]){
 
     index = getIndex(accountNumber);
 
-    if(index != -1 && accounts[index].isOpen]){
+    if(index != -1 && accounts[index].isOpen){
         printf("Balance for account %d is $%.2f.\n", accountNumber, accounts[index]);
     } else {
         printf("Account not open or invalid account number.");
@@ -152,4 +152,22 @@ void withdraw(Account accounts[]){
     }
 }
 //TODO: Create Close Account function
+void closeAccount(Account accounts[], int *openAccounts){
+    int accountNumber, index;
+
+    //Request the index from the array
+    printf("Enter account number to close: ");
+    scanf("%d", &accountNumber);
+    index = getIndex(accountNumber);
+
+    if(index != -1 && accounts[index].isOpen){
+        accounts[index].isOpen = 0; //Close the open state
+        accounts[index].balance = 0; //Clear the balance for security
+        *openAccounts -= 1;
+        printf("Account %d closed successfully.\n", accountNumber);
+    } else {
+        printf("Account not open or invalid account number.\n");
+    }
+}
+
 
