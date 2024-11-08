@@ -13,12 +13,14 @@ typedef struct {
 
 int getIndex(int accountNumber);
 //char userInput();
-void openAccount(Account account[], int *openAccounts);
-void deposit(Account account[]);
-void withdrawMoney(accounts);
-void checkBalance(Account account[]);
-void addIntereset();
-void closeAccount();
+void openAccount(Account accounts[], int *openAccounts);
+void deposit(Account accounts[]);
+void withdraw(Account accounts[]);
+void balanceInquiry(Account account[]);
+void computeInterest(Account accounts[]);
+void closeAccount(Account accounts[], int *openAccounts);
+void printAllAccounts(Account accounts[]);
+void exitProgram(Account accounts[], int *openAccounts);
 
 int main(){
     //TODO: Get a user input for requested function
