@@ -170,4 +170,18 @@ void closeAccount(Account accounts[], int *openAccounts){
     }
 }
 
+void computeInterest(Account accounts[]){
+    double interestRate;
+    printf("Enter interest rate (%%): ");
+    scanf("%lf", &interestRate);
+
+    for(int i=0; i<NUM_ACCOUNTS; i++){
+        if(accounts[i].isOpen){
+            accounts[i].balance += accounts[i].balance * interestRate /100;
+        } else {
+            printf("Account %d is not open", i + 100);
+        }
+    }
+    printf("Interest rate applied to all open accounts");
+}
 
