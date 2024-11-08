@@ -185,3 +185,11 @@ void computeInterest(Account accounts[]){
     printf("Interest rate applied to all open accounts");
 }
 
+void exitProgram(Account accounts[], int *openAccounts){
+    for(int i = 0; i< NUM_ACCOUNTS; i++){
+        accounts[i].isOpen = 0;
+        accounts[i].balance = 0;
+    }
+    *openAccounts = 0;
+    printf("All accounts closed. Exiting program.\n");
+}
