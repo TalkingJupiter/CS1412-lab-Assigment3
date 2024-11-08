@@ -12,32 +12,83 @@ typedef struct {
 
 
 int getIndex(int accountNumber);
-char userInput();
+//char userInput();
 void openAccount(Account account[], int *openAccounts);
 void deposit(Account account[]);
-void withdrawMoney();
+void withdrawMoney(accounts);
 void checkBalance(Account account[]);
 void addIntereset();
 void closeAccount();
 
 int main(){
     //TODO: Get a user input for requested function
+    Account accounts[NUM_ACCOUNTS];
+    int openAccounts = 0;
     char choice = NULL;
 
-    //TODO: Write a switch case function to call the requested function
+    for(int i=0; i<NUM_ACCOUNTS;i++){
+        accounts[i].isOpen = 0;
+        accounts[i].balance = 0;
+    }
 
+    //TODO: Write a switch case function to call the requested function
     do{
-        userInput();
-        switch (choice)
-        {
-        case('o' || 'O'):
-            openAccount();
-            userInput();
-            break;
-        
-        default:
-            printf("Invalid Input...");
-            break;
+        printf("\n--- Bank Account Management ---\n");
+        printf("O - Open an account\n");
+        printf("B - Balance inquiry\n");
+        printf("D - Deposit money\n");
+        printf("W - Withdraw money\n");
+        printf("C - Close an account\n");
+        printf("I - Compute interest\n");
+        printf("P - Print all accounts\n");
+        printf("E - Exit program\n");
+        printf("Enter your choice: ");
+        scanf(" %c", &choice);
+
+        switch (choice){
+            case('o'):
+            case('O'):
+                openAccount(accounts, &openAccounts);
+                break;
+            
+            case 'b':
+            case 'B':
+                checkBalance(accounts);
+                break;
+
+            case 'D':
+            case 'd':
+                deposit(accounts);
+                break;
+
+            case 'W':
+            case 'w':
+                withdraw(accounts);
+                break;
+
+            case 'C':
+            case 'c':
+                closeAccount(accounts, &openAccounts);
+                break;
+
+            case 'I':
+            case 'i':
+                computeInterest(accounts);
+                break;
+
+            case 'P':
+            case 'p':
+                printAllAccounts(accounts);
+                break;
+
+            case 'E':
+            case 'e':
+                exitProgram(accounts, &openAccounts);
+                break;
+
+            default:
+                printf("Invalid Input...");
+                break;
         }
     }while(!(choice == 'E') || !(choice == 'e'));
 }
@@ -53,12 +104,6 @@ int getIndex(int accountNumber){
 
 //TODO: Load the accounts from the file
 
-char userInput(){
-    char choice = NULL;
-    printf("Enter your choice: ");
-    scanf("%c", &choice);
-    return choice;
-}
 
 //TODO: Create Open account function
 void openAccount(Account accounts[], int *openAccounts){
