@@ -5,6 +5,11 @@
 #define MIN_DEPOSIT 100
 #define FILENAME "account.dat"
 
+typedef struct {
+    double balance;
+    int isOpen;
+} Account;
+
 
 int getIndex(int accountNumber);
 char userInput();
@@ -56,7 +61,7 @@ char userInput(){
 }
 
 //TODO: Create Open account function
-void openAccount(double accounts[], int *openAccounts){
+void openAccount(Account accounts[], int *openAccounts){
     int accountNumber, index;
     double initialDeposit;
 
@@ -72,8 +77,10 @@ void openAccount(double accounts[], int *openAccounts){
         return;
     }
     for(index = 0; index < NUM_ACCOUNTS; index++){
-        if(accounts[index] == -1){
-            accounts[index] = initialDeposit;
+        if(!accounts[index].balance){
+            accounts[index].balance = initialDeposit;
+            accounts[index].isOpen = 1;
+            *openAccounts += 1;
             accountNumber = BASE_ACCOUNT_NUM + index;
             printf("Account %d opened with a balance pf $%.2f\n", accountNumber, initialDeposit);
             return;
@@ -83,35 +90,35 @@ void openAccount(double accounts[], int *openAccounts){
 
 }
 //TODO: Create balance inquiry function
-void checkBalance(double accounts[]){
+void checkBalance(Account accounts[]){
     int accountNumber, index;
     printf("Enter account number to check balance: ");
     scanf("%d", &accountNumber);
 
     index = getIndex(accountNumber);
 
-    if(index != -1 && accounts[index != -1]){
+    if(index != -1 && accounts[index].isOpen]){
         printf("Balance for account %d is $%.2f.\n", accountNumber, accounts[index]);
     } else {
         printf("Account not open or invalid account number.");
     }
 }
 //TODO: Create Deposit function
-void deposit(double accounts[]){
+void deposit(Account accounts[]){
     int accountNumber, index;
     double amount;
 
-    index = getIndex(accountNumber); // Request the index from the array
-
+     // Request the index from the array
     printf("Enter account number for input: ");
     scanf("%lf", &amount);
+    index = getIndex(accountNumber);
 
-    if(index !=-1 && accounts[index] != -1){
+    if(index !=-1 && accounts[index].isOpen){
         printf("Enter deposit amount: ");
         scanf("%.2lf", &amount);
 
         if(amount > 0){
-            accounts[index] += amount;
+            accounts[index].balance += amount;
             printf("Deposited $%.2f to account %d. New balance is $%.2f.\n");
         } else {
             printf("Deposit amount must be positive. \n");
@@ -121,6 +128,28 @@ void deposit(double accounts[]){
     }    
 }
 //TODO: Create Withdrawal function
+void withdraw(Account accounts[]){
+    int accountNumber, index;
+    double amount;
 
+    //Request the index from the array
+    printf("Enter account number for withdrawal: ");
+    scanf("%d", &accountNumber);
+    index = getIndex(accountNumber);
+
+    if(index != -1 || accounts[index].isOpen){
+        printf("Enter withdraw amount: ");
+        scanf("%.2lf", &amount);
+
+        if(amount > 0 && amount <= accounts[index].balance){
+            accounts[index].balance -= amount;
+            printf("Withdrew $%.2f from account %d. New balance is $%.2f.\n", amount, accounts[index].balance);
+        } else {
+            printf("Invalid withdraw amount or insufficient founds...\n");
+        }
+    } else {
+        printf("Account not open or invalid account number...\n");
+    }
+}
 //TODO: Create Close Account function
 
