@@ -9,9 +9,9 @@
 int getIndex(int accountNumber);
 char userInput();
 void openAccount(double account[], int *openAccounts);
-void depositMoney();
+void deposit(double account[]);
 void withdrawMoney();
-void checkBalance();
+void checkBalance(double account[]);
 void addIntereset();
 void closeAccount();
 
@@ -83,9 +83,43 @@ void openAccount(double accounts[], int *openAccounts){
 
 }
 //TODO: Create balance inquiry function
+void checkBalance(double accounts[]){
+    int accountNumber, index;
+    printf("Enter account number to check balance: ");
+    scanf("%d", &accountNumber);
 
+    index = getIndex(accountNumber);
+
+    if(index != -1 && accounts[index != -1]){
+        printf("Balance for account %d is $%.2f.\n", accountNumber, accounts[index]);
+    } else {
+        printf("Account not open or invalid account number.");
+    }
+}
 //TODO: Create Deposit function
+void deposit(double accounts[]){
+    int accountNumber, index;
+    double amount;
 
+    index = getIndex(accountNumber); // Request the index from the array
+
+    printf("Enter account number for input: ");
+    scanf("%lf", &amount);
+
+    if(index !=-1 && accounts[index] != -1){
+        printf("Enter deposit amount: ");
+        scanf("%.2lf", &amount);
+
+        if(amount > 0){
+            accounts[index] += amount;
+            printf("Deposited $%.2f to account %d. New balance is $%.2f.\n");
+        } else {
+            printf("Deposit amount must be positive. \n");
+        }
+    } else {
+        printf("Account not open or invalid account number.\n");
+    }    
+}
 //TODO: Create Withdrawal function
 
 //TODO: Create Close Account function
