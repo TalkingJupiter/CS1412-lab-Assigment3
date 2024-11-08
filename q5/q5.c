@@ -26,7 +26,7 @@ int main(){
     //TODO: Get a user input for requested function
     Account accounts[NUM_ACCOUNTS];
     int openAccounts = 0;
-    char choice = NULL;
+    char choice;
 
     for(int i=0; i<NUM_ACCOUNTS;i++){
         accounts[i].isOpen = 0;
@@ -55,7 +55,7 @@ int main(){
             
             case 'b':
             case 'B':
-                checkBalance(accounts);
+                balanceInquiry(accounts);
                 break;
 
             case 'D':
@@ -137,7 +137,7 @@ void openAccount(Account accounts[], int *openAccounts){
 
 }
 //TODO: Create balance inquiry function
-void checkBalance(Account accounts[]){
+void balanceInquiry(Account accounts[]){
     int accountNumber, index;
     printf("Enter account number to check balance: ");
     scanf("%d", &accountNumber);
@@ -231,6 +231,16 @@ void computeInterest(Account accounts[]){
     }
     printf("Interest rate applied to all open accounts");
 }
+
+void printAllAccounts(Account accounts[]) {
+    printf("Account Number\tBalance\n");
+    for (int i = 0; i < NUM_ACCOUNTS; i++) {
+        if (accounts[i].isOpen) {
+            printf("%d\t\t$%.2f\n", BASE_ACCOUNT_NUM + i, accounts[i].balance);
+        }
+    }
+}
+
 
 void exitProgram(Account accounts[], int *openAccounts){
     for(int i = 0; i< NUM_ACCOUNTS; i++){
